@@ -2,6 +2,42 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+st.markdown("""
+<style>
+html, body, [class*="css"] {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h2, h3 {
+    font-weight: 600;
+}
+
+.stButton>button {
+    background-color: #9A1F46;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    border: none;
+}
+
+.stButton>button:hover {
+    background-color: #560E25;
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 900px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # load models
 lr_model = joblib.load("models/logreg_model.joblib")
 rf_model = joblib.load("models/rf_model.joblib")
@@ -11,12 +47,15 @@ st.title("Type 2 Diabetes Risk Predictor")
 st.write("Enter patient information to predict diabetes risk.")
 
 # get patient info
-gender = st.radio("Gender", ["Male", "Female"])
-age = st.number_input("Age", min_value=0.0)
-bmi = st.number_input("BMI", min_value=0.0)
-glucose = st.number_input("Blood Glucose Level", min_value=0.0)
-hypertension = st.radio("Hypertension", ["Yes", "No"])
-hba1c = st.number_input("HbA1c Level", min_value=0.0)
+col1, col2 = st.columns(2)
+with col1:
+    gender = st.radio("Gender", ["Male", "Female"])
+    age = st.number_input("Age", min_value=0.0)
+    bmi = st.number_input("BMI", min_value=0.0)
+with col2: 
+    hypertension = st.radio("Hypertension", ["Yes", "No"])
+    glucose = st.number_input("Blood Glucose Level", min_value=0.0)
+    hba1c = st.number_input("HbA1c Level", min_value=0.0)
 
 # gender and hypertension to num
 gender_val = 1 if gender == "Female" else 0
@@ -31,7 +70,18 @@ def assign_risk(prob):
         return "High"
     else:
         return "Very High"
-    
+
+# stylize
+def color_risk(risk):
+    if risk == "Low":
+        return "#317628"
+    elif risk == "Medium":
+        return "#CFBD18"
+    elif risk == "High":
+        return "#EE8F37"
+    else:
+        return "#72130D"
+ 
 if st.button("Predict Risk"):
     # input DataFrame 
     input_data = pd.DataFrame([{
@@ -54,10 +104,22 @@ if st.button("Predict Risk"):
     # display results
     st.subheader("Results")
 
-    st.write("Logistic Regression")
-    st.write(f"Probability: {prob_log:.2f}")
-    st.write(f"Risk Level: {risk_log}")
+    st.markdown(f"""
+    <div style="padding:15px; border-radius:10px; background-color:#F9FAFB;">
+    <b>Logistic Regression</b><br>
+    Probability: {prob_log:.2f}<br>
+    <span style="color:{color_risk(risk_log)}; font-weight:600;">
+    Risk Level: {risk_log}
+    </span>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write("Random Forest")
-    st.write(f"Probability: {prob_rf:.2f}")
-    st.write(f"Risk Level: {risk_rf}")
+    st.markdown(f"""
+    <div style="padding:15px; border-radius:10px; background-color:#F9FAFB; margin-top:10px;">
+    <b>Random Forest</b><br>
+    Probability: {prob_rf:.2f}<br>
+    <span style="color:{color_risk(risk_rf)}; font-weight:600;">
+    Risk Level: {risk_rf}
+    </span>
+    </div>
+    """, unsafe_allow_html=True)
