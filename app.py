@@ -18,7 +18,7 @@ h2, h3 {
 }
 
 .stButton>button {
-    background-color: #9A1F46;
+    background-color: #3468b0;
     color: white;
     border-radius: 8px;
     padding: 10px 20px;
@@ -27,7 +27,8 @@ h2, h3 {
 }
 
 .stButton>button:hover {
-    background-color: #560E25;
+    background-color: #083370;
+    color: white;
 }
 
 .block-container {
@@ -50,12 +51,12 @@ st.write("Enter patient information to predict diabetes risk.")
 col1, col2 = st.columns(2)
 with col1:
     gender = st.radio("Gender", ["Male", "Female"])
-    age = st.number_input("Age", min_value=0.0)
-    bmi = st.number_input("BMI", min_value=0.0)
+    age = st.number_input("Age", min_value=0.0, step=1.0)
+    bmi = st.number_input("BMI", min_value=0.0, step=1.0)
 with col2: 
     hypertension = st.radio("Hypertension", ["Yes", "No"])
-    glucose = st.number_input("Blood Glucose Level", min_value=0.0)
-    hba1c = st.number_input("HbA1c Level", min_value=0.0)
+    glucose = st.number_input("Blood Glucose Level", min_value=0.0, step=1.0)
+    hba1c = st.number_input("HbA1c Level", min_value=0.0, step=0.01)
 
 # gender and hypertension to num
 gender_val = 1 if gender == "Female" else 0
