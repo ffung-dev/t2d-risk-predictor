@@ -55,8 +55,8 @@ with col1:
     bmi = st.number_input("BMI", min_value=0.0, step=1.0)
 with col2: 
     hypertension = st.radio("Hypertension", ["Yes", "No"])
-    glucose = st.number_input("Blood Glucose Level", min_value=0.0, step=1.0)
-    hba1c = st.number_input("HbA1c Level", min_value=0.0, step=0.01)
+    glucose = st.number_input("Blood Glucose Level (mg/dL)", min_value=0.0, step=1.0)
+    hba1c = st.number_input("HbA1c Level (%)", min_value=0.0, step=0.01)
 
 # gender and hypertension to num
 gender_val = 1 if gender == "Female" else 0
@@ -124,3 +124,14 @@ if st.button("Predict Risk"):
     </span>
     </div>
     """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+st.markdown("""
+<p style="font-size:13px; color:#6B7280; text-align:center">
+Type 2 Diabetes Risk Predictor<br>
+<a href="link here" target="_blank">View Full Research Paper</a><br>
+<a href="https://github.com/ffung-dev/t2d-risk-predictor" target="_blank">GitHub Repository</a><br>
+WUHC Healthcare Hackathon 2026
+</p>
+""", unsafe_allow_html=True)
