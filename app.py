@@ -129,8 +129,8 @@ st.markdown("---")
 
 st.markdown("""
 <p style="font-size:13px; color:#6B7280; text-align:center">
-Type 2 Diabetes Risk Predictor<br>
-<a href="link here" target="_blank">View Full Research Paper</a><br>
+EDIFICIENT: Fiona F. and Kevin L.<br>
+<a href="https://docs.google.com/document/d/14f32zCMk3zQ0UXC47A2HAiY8emfwXXBnlXtwO9ZE1hM/edit?usp=sharing" target="_blank">View Full Research Paper</a><br>
 <a href="https://github.com/ffung-dev/t2d-risk-predictor" target="_blank">GitHub Repository</a><br>
 WUHC Healthcare Hackathon 2026
 </p>
